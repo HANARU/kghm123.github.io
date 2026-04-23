@@ -5,6 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KIM Hyogyeom — Developer</title>
+  <meta name="description" content="게임 개발을 중심으로 인터랙티브한 경험을 만드는 개발자입니다.">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kghm123.github.io/">
+  <meta property="og:title" content="KIM Hyogyeom — Developer Page">
+  <meta property="og:description" content="Always learning, always building.">
+  <meta property="og:image" content="https://kghm123.github.io/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://kghm123.github.io/">
+  <meta name="twitter:title" content="KIM Hyogyeom — Developer Page">
+  <meta name="twitter:description" content="Always learning, always building.">
+  <meta name="twitter:image" content="https://kghm123.github.io/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
@@ -350,7 +365,7 @@
 
     .skill-cat-title {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 12px;
       color: var(--accent);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -370,16 +385,16 @@
     }
 
     .skill-name {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 500;
       color: var(--fg);
-      width: 110px;
+      width: 140px;
       flex-shrink: 0;
     }
 
     .skill-bar-track {
       flex: 1;
-      height: 3px;
+      height: 4px;
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
@@ -398,9 +413,9 @@
 
     .skill-level {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 13px;
       color: var(--fg2);
-      width: 28px;
+      width: 36px;
       text-align: right;
     }
 
@@ -412,9 +427,9 @@
     }
 
     .skill-tag {
-      padding: 6px 14px;
+      padding: 8px 16px;
       border: 1px solid var(--border);
-      font-size: 12px;
+      font-size: 14px;
       font-family: var(--mono);
       color: var(--fg2);
       border-radius: 1px;
@@ -1661,11 +1676,11 @@
 
     function ProjectCard({ project, lang, animate }) {
       return (
-        <div 
-          className="blog-card" 
-          style={{ 
-            opacity: animate ? 1 : 0, 
-            transform: animate ? 'translateY(0)' : 'translateY(20px)', 
+        <div
+          className="blog-card"
+          style={{
+            opacity: animate ? 1 : 0,
+            transform: animate ? 'translateY(0)' : 'translateY(20px)',
             transition: 'opacity 0.6s ease, transform 0.6s ease',
             cursor: 'pointer'
           }}
@@ -2038,12 +2053,12 @@
       const lang = useContext(LangContext);
       const [mdHtml, setMdHtml] = useState('');
       const [loading, setLoading] = useState(true);
-      
+
       useEffect(() => {
         window.scrollTo(0, 0);
-        
+
         if (!selectedProject) return;
-        
+
         setLoading(true);
         // fetch markdown dynamically based on id and lang
         fetch(`projects/${selectedProject.id}-${lang}.md`)
@@ -2059,7 +2074,7 @@
             setMdHtml('<p>Content not found.</p>');
             setLoading(false);
           });
-          
+
       }, [selectedProject, lang]);
 
       if (!selectedProject) {
@@ -2083,17 +2098,17 @@
               <span>|</span>
               <span>{selectedProject.period}</span>
             </div>
-            
+
             {loading ? (
               <p style={{ color: 'var(--fg2)', lineHeight: 1.8, marginBottom: 40, fontSize: 16 }}>Loading...</p>
             ) : (
-              <div 
-                className="markdown-body" 
-                style={{ color: 'var(--fg)', lineHeight: 1.8, marginBottom: 40, fontSize: 16 }} 
-                dangerouslySetInnerHTML={{ __html: mdHtml }} 
+              <div
+                className="markdown-body"
+                style={{ color: 'var(--fg)', lineHeight: 1.8, marginBottom: 40, fontSize: 16 }}
+                dangerouslySetInnerHTML={{ __html: mdHtml }}
               />
             )}
-            
+
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 48 }}>
               {selectedProject.techStack.map(ts => (
                 <span className="skill-tag" key={ts} style={{ background: selectedProject.color + '20', color: selectedProject.color, border: 'none', padding: '8px 16px', borderRadius: 20 }}>{ts}</span>
@@ -2123,7 +2138,7 @@
         const handleHash = () => {
           const hash = window.location.hash.slice(1) || '/';
           setCurrentRoute(hash);
-          
+
           if (hash.startsWith('/portfolio/')) {
             const id = hash.replace('/portfolio/', '');
             const proj = PROJECTS_DATA.find(p => p.id === id);
