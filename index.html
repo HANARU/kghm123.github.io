@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KIM Hyogyeom — Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--fg); font-family: 'Space Grotesk', sans-serif; min-height: 100vh; transition: background 0.4s, color 0.4s; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
+    }
 
     :root {
       --bg: #f7f4ee;
@@ -21,23 +47,37 @@
       --fg2: #6b6455;
       --accent: #c8a97e;
       --accent2: #b8936a;
-      --border: rgba(28,26,22,0.1);
+      --border: rgba(28, 26, 22, 0.1);
       --sidebar-w: 260px;
       --mono: 'Space Mono', monospace;
     }
 
     /* SCROLLBAR */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 2px;
+    }
 
     /* LAYOUT */
-    .layout { display: flex; min-height: 100vh; }
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
     .sidebar {
       width: var(--sidebar-w);
       min-height: 100vh;
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       display: flex;
       flex-direction: column;
       padding: 48px 36px;
@@ -46,6 +86,7 @@
       background: var(--bg);
       transition: background 0.4s;
     }
+
     .main {
       margin-left: var(--sidebar-w);
       flex: 1;
@@ -62,6 +103,7 @@
       margin-bottom: 4px;
       line-height: 1.3;
     }
+
     .sidebar-role {
       font-family: var(--mono);
       font-size: 10px;
@@ -69,7 +111,13 @@
       letter-spacing: 0.05em;
       margin-bottom: 48px;
     }
-    .nav { display: flex; flex-direction: column; gap: 4px; }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -87,6 +135,7 @@
       transition: color 0.2s;
       position: relative;
     }
+
     .nav-item::before {
       content: '';
       width: 20px;
@@ -94,13 +143,18 @@
       background: var(--fg2);
       transition: width 0.3s, background 0.2s;
     }
-    .nav-item:hover, .nav-item.active {
+
+    .nav-item:hover,
+    .nav-item.active {
       color: var(--fg);
     }
-    .nav-item:hover::before, .nav-item.active::before {
+
+    .nav-item:hover::before,
+    .nav-item.active::before {
       width: 32px;
       background: var(--accent);
     }
+
     .nav-item.active {
       color: var(--fg);
       font-weight: 600;
@@ -122,7 +176,10 @@
       border-bottom: 1px solid var(--border);
       position: relative;
     }
-    section:last-child { border-bottom: none; }
+
+    section:last-child {
+      border-bottom: none;
+    }
 
     /* HERO SECTION */
     .hero {
@@ -131,6 +188,7 @@
       justify-content: center;
       padding-top: 120px;
     }
+
     .hero-eyebrow {
       font-family: var(--mono);
       font-size: 11px;
@@ -142,6 +200,7 @@
       transform: translateY(12px);
       transition: opacity 0.6s 0.1s, transform 0.6s 0.1s;
     }
+
     .hero-name {
       font-size: clamp(56px, 7vw, 100px);
       font-weight: 700;
@@ -153,7 +212,11 @@
       transform: translateY(20px);
       transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
     }
-    .hero-name span { color: var(--accent); }
+
+    .hero-name span {
+      color: var(--accent);
+    }
+
     .hero-tagline {
       font-size: 16px;
       color: var(--fg2);
@@ -164,6 +227,7 @@
       transform: translateY(12px);
       transition: opacity 0.6s 0.4s, transform 0.6s 0.4s;
     }
+
     .hero-divider {
       width: 40px;
       height: 1px;
@@ -172,11 +236,19 @@
       opacity: 0;
       transition: opacity 0.6s 0.35s, width 0.8s 0.5s;
     }
+
     .hero.visible .hero-eyebrow,
     .hero.visible .hero-name,
     .hero.visible .hero-tagline,
-    .hero.visible .hero-divider { opacity: 1; transform: translateY(0); }
-    .hero.visible .hero-divider { width: 40px; opacity: 1; }
+    .hero.visible .hero-divider {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero.visible .hero-divider {
+      width: 40px;
+      opacity: 1;
+    }
 
     /* SECTION HEADER */
     .section-header {
@@ -185,18 +257,21 @@
       gap: 16px;
       margin-bottom: 56px;
     }
+
     .section-num {
       font-family: var(--mono);
       font-size: 11px;
       color: var(--accent);
       letter-spacing: 0.1em;
     }
+
     .section-title {
       font-size: 28px;
       font-weight: 600;
       letter-spacing: -0.02em;
       color: var(--fg);
     }
+
     .section-line {
       flex: 1;
       height: 1px;
@@ -211,19 +286,26 @@
       gap: 48px;
       align-items: start;
     }
+
     .about-text p {
       font-size: 15px;
       line-height: 1.85;
       color: var(--fg2);
       margin-bottom: 20px;
     }
-    .about-text p strong { color: var(--fg); font-weight: 600; }
+
+    .about-text p strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
     .about-card {
       background: var(--bg2);
       border: 1px solid var(--border);
       padding: 28px;
       border-radius: 2px;
     }
+
     .about-card-label {
       font-family: var(--mono);
       font-size: 9px;
@@ -232,6 +314,7 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+
     .about-info-row {
       display: flex;
       justify-content: space-between;
@@ -240,12 +323,31 @@
       border-bottom: 1px solid var(--border);
       font-size: 12px;
     }
-    .about-info-row:last-child { border-bottom: none; }
-    .about-info-key { color: var(--fg2); font-weight: 500; letter-spacing: 0.04em; }
-    .about-info-val { color: var(--fg); font-weight: 600; font-family: var(--mono); font-size: 11px; }
+
+    .about-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .about-info-key {
+      color: var(--fg2);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .about-info-val {
+      color: var(--fg);
+      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
 
     /* SKILLS */
-    .skills-categories { display: flex; flex-direction: column; gap: 40px; }
+    .skills-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
     .skill-cat-title {
       font-family: var(--mono);
       font-size: 10px;
@@ -254,8 +356,19 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
-    .skill-list { display: flex; flex-direction: column; gap: 14px; }
-    .skill-row { display: flex; align-items: center; gap: 16px; }
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .skill-name {
       font-size: 13px;
       font-weight: 500;
@@ -263,6 +376,7 @@
       width: 110px;
       flex-shrink: 0;
     }
+
     .skill-bar-track {
       flex: 1;
       height: 3px;
@@ -271,14 +385,17 @@
       overflow: hidden;
       position: relative;
     }
+
     .skill-bar-fill {
       height: 100%;
       background: var(--accent);
       border-radius: 2px;
       width: 0;
-      transition: width 1s cubic-bezier(0.4,0,0.2,1);
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .skill-bar-fill.animated { }
+
+    .skill-bar-fill.animated {}
+
     .skill-level {
       font-family: var(--mono);
       font-size: 10px;
@@ -293,6 +410,7 @@
       gap: 8px;
       margin-top: 8px;
     }
+
     .skill-tag {
       padding: 6px 14px;
       border: 1px solid var(--border);
@@ -303,10 +421,11 @@
       cursor: default;
       transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
+
     .skill-tag:hover {
       border-color: var(--accent);
       color: var(--fg);
-      background: rgba(200,169,126,0.08);
+      background: rgba(200, 169, 126, 0.08);
     }
 
     /* BLOG GRID */
@@ -315,6 +434,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
+
     .blog-card {
       display: flex;
       flex-direction: column;
@@ -327,13 +447,21 @@
       position: relative;
       overflow: hidden;
     }
+
     .blog-card:hover {
       border-color: var(--accent);
       transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(28,26,22,0.08);
+      box-shadow: 0 12px 32px rgba(28, 26, 22, 0.08);
     }
-    .blog-card:hover .blog-card-arrow { opacity: 1; transform: translate(2px, -2px); }
-    .blog-card:hover .blog-thumb-overlay { opacity: 1; }
+
+    .blog-card:hover .blog-card-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    .blog-card:hover .blog-thumb-overlay {
+      opacity: 1;
+    }
 
     /* Thumbnail */
     .blog-thumb {
@@ -344,7 +472,13 @@
       background: var(--bg2);
       flex-shrink: 0;
     }
-    .blog-thumb svg { width: 100%; height: 100%; display: block; }
+
+    .blog-thumb svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
     .blog-thumb-label {
       position: absolute;
       inset: 0;
@@ -358,10 +492,11 @@
       letter-spacing: 0.08em;
       pointer-events: none;
     }
+
     .blog-thumb-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(200,169,126,0.12);
+      background: rgba(200, 169, 126, 0.12);
       opacity: 0;
       transition: opacity 0.25s;
     }
@@ -373,6 +508,7 @@
       flex-direction: column;
       flex: 1;
     }
+
     .blog-card-meta {
       display: flex;
       align-items: center;
@@ -380,6 +516,7 @@
       margin-bottom: 10px;
       flex-wrap: wrap;
     }
+
     .blog-card-tag {
       font-family: var(--mono);
       font-size: 9px;
@@ -389,12 +526,14 @@
       letter-spacing: 0.08em;
       white-space: nowrap;
     }
+
     .blog-card-date {
       font-family: var(--mono);
       font-size: 9px;
       color: var(--fg2);
       letter-spacing: 0.06em;
     }
+
     .blog-card-views {
       font-family: var(--mono);
       font-size: 9px;
@@ -403,6 +542,7 @@
       letter-spacing: 0.04em;
       opacity: 0.6;
     }
+
     .blog-card-title {
       font-size: 15px;
       font-weight: 600;
@@ -412,6 +552,7 @@
       margin-bottom: 8px;
       flex: 1;
     }
+
     .blog-card-excerpt {
       font-size: 12px;
       color: var(--fg2);
@@ -419,6 +560,7 @@
       opacity: 0.8;
       margin-bottom: 14px;
     }
+
     .blog-card-footer {
       display: flex;
       align-items: center;
@@ -426,6 +568,7 @@
       padding-top: 12px;
       border-top: 1px solid var(--border);
     }
+
     .blog-card-read {
       font-family: var(--mono);
       font-size: 9px;
@@ -433,6 +576,7 @@
       opacity: 0.6;
       letter-spacing: 0.06em;
     }
+
     .blog-card-arrow {
       font-size: 14px;
       color: var(--accent);
@@ -442,9 +586,18 @@
 
     /* Mobile: blog single column */
     @media (max-width: 768px) {
-      .blog-grid { grid-template-columns: 1fr; gap: 16px; }
-      .blog-card-title { font-size: 14px; }
-      .blog-card-excerpt { display: none; }
+      .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .blog-card-title {
+        font-size: 14px;
+      }
+
+      .blog-card-excerpt {
+        display: none;
+      }
     }
 
     /* BLOG ACTIONS */
@@ -458,6 +611,7 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+
     .blog-more-btn {
       display: flex;
       align-items: center;
@@ -474,16 +628,19 @@
       transition: border-color 0.2s, color 0.2s, background 0.2s;
       border-radius: 1px;
     }
+
     .blog-more-btn:hover {
       border-color: var(--accent);
       color: var(--fg);
-      background: rgba(200,169,126,0.06);
+      background: rgba(200, 169, 126, 0.06);
     }
+
     .blog-more-icon {
       font-size: 11px;
       color: var(--accent);
       transition: transform 0.2s;
     }
+
     .blog-all-link {
       font-family: var(--mono);
       font-size: 11px;
@@ -493,7 +650,10 @@
       transition: opacity 0.2s;
       margin-left: auto;
     }
-    .blog-all-link:hover { opacity: 0.7; }
+
+    .blog-all-link:hover {
+      opacity: 0.7;
+    }
 
     /* CONTACT */
     .contact-grid {
@@ -502,6 +662,7 @@
       gap: 64px;
       align-items: start;
     }
+
     .contact-intro {
       font-size: 32px;
       font-weight: 600;
@@ -509,13 +670,20 @@
       letter-spacing: -0.02em;
       margin-bottom: 20px;
     }
+
     .contact-sub {
       font-size: 14px;
       color: var(--fg2);
       line-height: 1.7;
       margin-bottom: 32px;
     }
-    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .contact-link {
       display: flex;
       align-items: center;
@@ -526,7 +694,11 @@
       transition: color 0.2s;
       padding: 4px 0;
     }
-    .contact-link:hover { color: var(--accent); }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
     .contact-link-icon {
       width: 32px;
       height: 32px;
@@ -538,12 +710,24 @@
       font-size: 10px;
       transition: border-color 0.2s, background 0.2s;
     }
+
     .contact-link:hover .contact-link-icon {
       border-color: var(--accent);
-      background: rgba(200,169,126,0.08);
+      background: rgba(200, 169, 126, 0.08);
     }
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-field { display: flex; flex-direction: column; gap: 6px; }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     .form-label {
       font-family: var(--mono);
       font-size: 9px;
@@ -551,7 +735,9 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .form-input, .form-textarea {
+
+    .form-input,
+    .form-textarea {
       background: var(--bg2);
       border: 1px solid var(--border);
       padding: 12px 14px;
@@ -563,8 +749,16 @@
       transition: border-color 0.2s;
       resize: none;
     }
-    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
-    .form-textarea { min-height: 100px; }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+    }
+
     .form-btn {
       display: flex;
       align-items: center;
@@ -583,18 +777,38 @@
       transition: background 0.2s, transform 0.15s;
       border-radius: 1px;
     }
-    .form-btn:hover { background: var(--accent); transform: translateY(-1px); }
-    .form-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .form-input-error { border-color: #c0553a !important; }
+
+    .form-btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .form-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-input-error {
+      border-color: #c0553a !important;
+    }
+
     .spinner {
       display: inline-block;
-      width: 12px; height: 12px;
-      border: 1.5px solid rgba(255,255,255,0.3);
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
       border-top-color: white;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .tweak-input {
       width: 100%;
       padding: 8px 10px;
@@ -607,8 +821,15 @@
       border-radius: 1px;
       transition: border-color 0.2s;
     }
-    .tweak-input:focus { border-color: var(--accent); }
-    .tweak-input::placeholder { color: var(--fg2); opacity: 0.5; }
+
+    .tweak-input:focus {
+      border-color: var(--accent);
+    }
+
+    .tweak-input::placeholder {
+      color: var(--fg2);
+      opacity: 0.5;
+    }
 
     /* LANG SWITCHER */
     .lang-switcher {
@@ -616,6 +837,7 @@
       align-items: center;
       gap: 4px;
     }
+
     .lang-btn {
       background: none;
       border: none;
@@ -628,9 +850,24 @@
       transition: color 0.2s;
       opacity: 0.6;
     }
-    .lang-btn:hover { color: var(--fg); opacity: 1; }
-    .lang-btn.active { color: var(--accent); opacity: 1; font-weight: 700; }
-    .lang-sep { font-family: var(--mono); font-size: 8px; color: var(--fg2); opacity: 0.3; }
+
+    .lang-btn:hover {
+      color: var(--fg);
+      opacity: 1;
+    }
+
+    .lang-btn.active {
+      color: var(--accent);
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .lang-sep {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: var(--fg2);
+      opacity: 0.3;
+    }
 
     /* DARK MODE TOGGLE */
     .dark-toggle {
@@ -644,23 +881,36 @@
       transition: background 0.3s, border-color 0.3s;
       flex-shrink: 0;
     }
+
     .dark-toggle::after {
       content: '';
       position: absolute;
-      top: 3px; left: 3px;
-      width: 12px; height: 12px;
+      top: 3px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--fg2);
       transition: transform 0.3s, background 0.3s;
     }
-    .dark-toggle.on { background: var(--accent); border-color: var(--accent); }
-    .dark-toggle.on::after { transform: translateX(16px); background: var(--bg); }
+
+    .dark-toggle.on {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .dark-toggle.on::after {
+      transform: translateX(16px);
+      background: var(--bg);
+    }
+
     .sidebar-bottom-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px;
     }
+
     .dark-toggle-label {
       font-family: var(--mono);
       font-size: 9px;
@@ -675,11 +925,27 @@
       transform: translateY(24px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .anim.visible { opacity: 1; transform: translateY(0); }
-    .anim-delay-1 { transition-delay: 0.1s; }
-    .anim-delay-2 { transition-delay: 0.2s; }
-    .anim-delay-3 { transition-delay: 0.3s; }
-    .anim-delay-4 { transition-delay: 0.4s; }
+
+    .anim.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .anim-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .anim-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .anim-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .anim-delay-4 {
+      transition-delay: 0.4s;
+    }
 
     /* TWEAKS PANEL */
     .tweaks-panel {
@@ -691,10 +957,14 @@
       border: 1px solid var(--border);
       padding: 20px;
       z-index: 9999;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
       display: none;
     }
-    .tweaks-panel.open { display: block; }
+
+    .tweaks-panel.open {
+      display: block;
+    }
+
     .tweaks-title {
       font-family: var(--mono);
       font-size: 9px;
@@ -703,14 +973,24 @@
       color: var(--accent);
       margin-bottom: 16px;
     }
-    .tweaks-group { margin-bottom: 18px; }
+
+    .tweaks-group {
+      margin-bottom: 18px;
+    }
+
     .tweaks-group-label {
       font-size: 10px;
       color: var(--fg2);
       margin-bottom: 8px;
       letter-spacing: 0.05em;
     }
-    .tweaks-options { display: flex; flex-direction: column; gap: 6px; }
+
+    .tweaks-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     .tweak-btn {
       padding: 8px 12px;
       border: 1px solid var(--border);
@@ -723,10 +1003,12 @@
       transition: all 0.2s;
       border-radius: 1px;
     }
-    .tweak-btn.selected, .tweak-btn:hover {
+
+    .tweak-btn.selected,
+    .tweak-btn:hover {
       border-color: var(--accent);
       color: var(--fg);
-      background: rgba(200,169,126,0.08);
+      background: rgba(200, 169, 126, 0.08);
     }
 
     /* THEME OVERRIDES */
@@ -736,18 +1018,33 @@
       --fg: #1c1a16;
       --fg2: #5a5245;
       --accent: #a08858;
-      --border: rgba(28,26,22,0.12);
+      --border: rgba(28, 26, 22, 0.12);
     }
-    body.theme-debug .hero-name { font-family: var(--mono); letter-spacing: -0.02em; }
-    body.theme-debug .section-title { font-family: var(--mono); }
-    body.theme-debug .about-card { border-left: 3px solid var(--accent); border-radius: 0; }
-    body.theme-debug .skill-bar-fill { background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 6px, transparent 6px, transparent 8px); }
+
+    body.theme-debug .hero-name {
+      font-family: var(--mono);
+      letter-spacing: -0.02em;
+    }
+
+    body.theme-debug .section-title {
+      font-family: var(--mono);
+    }
+
+    body.theme-debug .about-card {
+      border-left: 3px solid var(--accent);
+      border-radius: 0;
+    }
+
+    body.theme-debug .skill-bar-fill {
+      background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 6px, transparent 6px, transparent 8px);
+    }
+
     body.theme-debug section::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image: repeating-linear-gradient(0deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 40px),
-                        repeating-linear-gradient(90deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 40px);
+        repeating-linear-gradient(90deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 40px);
       pointer-events: none;
       opacity: 0.4;
     }
@@ -758,17 +1055,21 @@
       --fg: #f0ece3;
       --fg2: #9a8e7a;
       --accent: #d4a96a;
-      --border: rgba(240,236,227,0.1);
+      --border: rgba(240, 236, 227, 0.1);
     }
 
     /* THEME TRANSITION */
-    body { transition: background 0.3s, color 0.3s; }
+    body {
+      transition: background 0.3s, color 0.3s;
+    }
 
     /* ── MOBILE HEADER ── */
     .mobile-header {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 56px;
       background: var(--bg);
       border-bottom: 1px solid var(--border);
@@ -778,6 +1079,7 @@
       padding: 0 20px;
       transition: background 0.3s;
     }
+
     .mobile-header-name {
       font-size: 12px;
       font-weight: 700;
@@ -785,7 +1087,11 @@
       text-transform: uppercase;
       color: var(--fg);
     }
-    .mobile-header-name span { color: var(--accent); }
+
+    .mobile-header-name span {
+      color: var(--accent);
+    }
+
     .hamburger {
       width: 44px;
       height: 44px;
@@ -799,6 +1105,7 @@
       border: none;
       padding: 0;
     }
+
     .hamburger span {
       display: block;
       width: 22px;
@@ -807,9 +1114,19 @@
       transition: transform 0.3s, opacity 0.3s, width 0.3s;
       transform-origin: center;
     }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
 
     /* ── MOBILE DRAWER ── */
     .mobile-drawer {
@@ -819,19 +1136,28 @@
       z-index: 190;
       pointer-events: none;
     }
-    .mobile-drawer.open { pointer-events: all; }
+
+    .mobile-drawer.open {
+      pointer-events: all;
+    }
+
     .drawer-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(28,26,22,0.35);
+      background: rgba(28, 26, 22, 0.35);
       opacity: 0;
       transition: opacity 0.3s;
       backdrop-filter: blur(2px);
     }
-    .mobile-drawer.open .drawer-backdrop { opacity: 1; }
+
+    .mobile-drawer.open .drawer-backdrop {
+      opacity: 1;
+    }
+
     .drawer-panel {
       position: absolute;
-      top: 0; right: 0;
+      top: 0;
+      right: 0;
       width: min(280px, 80vw);
       height: 100%;
       background: var(--bg);
@@ -840,10 +1166,19 @@
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mobile-drawer.open .drawer-panel { transform: translateX(0); }
-    .drawer-nav { display: flex; flex-direction: column; gap: 0; }
+
+    .mobile-drawer.open .drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
     .drawer-nav-item {
       display: flex;
       align-items: center;
@@ -863,8 +1198,16 @@
       letter-spacing: -0.01em;
       transition: color 0.2s;
     }
-    .drawer-nav-item:last-child { border-bottom: none; }
-    .drawer-nav-item.active, .drawer-nav-item:hover { color: var(--fg); }
+
+    .drawer-nav-item:last-child {
+      border-bottom: none;
+    }
+
+    .drawer-nav-item.active,
+    .drawer-nav-item:hover {
+      color: var(--fg);
+    }
+
     .drawer-nav-item.active::before {
       content: '';
       display: block;
@@ -874,6 +1217,7 @@
       background: var(--accent);
       flex-shrink: 0;
     }
+
     .drawer-footer {
       margin-top: auto;
       font-family: var(--mono);
@@ -885,51 +1229,104 @@
 
     /* ── TABLET ── */
     @media (max-width: 1024px) and (min-width: 769px) {
-      :root { --sidebar-w: 200px; }
-      .sidebar { padding: 40px 24px; }
-      section { padding: 72px 48px; }
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .contact-grid { gap: 40px; }
+      :root {
+        --sidebar-w: 200px;
+      }
+
+      .sidebar {
+        padding: 40px 24px;
+      }
+
+      section {
+        padding: 72px 48px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .contact-grid {
+        gap: 40px;
+      }
     }
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .mobile-header { display: flex; }
-      .mobile-drawer { display: block; }
+      .sidebar {
+        display: none;
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      .mobile-drawer {
+        display: block;
+      }
+
       .main {
         margin-left: 0;
-        padding-top: 56px; /* header height */
+        padding-top: 56px;
+        /* header height */
       }
 
       section {
         min-height: auto;
         padding: 56px 20px 48px;
       }
+
       .hero {
         min-height: calc(100svh - 56px);
         padding-top: 48px;
         justify-content: flex-start;
       }
+
       .hero-name {
         font-size: clamp(40px, 11vw, 64px);
         margin-bottom: 20px;
       }
-      .hero-eyebrow { margin-bottom: 16px; font-size: 10px; }
-      .hero-tagline { font-size: 14px; max-width: 100%; }
-      .hero-divider { margin: 20px 0; }
+
+      .hero-eyebrow {
+        margin-bottom: 16px;
+        font-size: 10px;
+      }
+
+      .hero-tagline {
+        font-size: 14px;
+        max-width: 100%;
+      }
+
+      .hero-divider {
+        margin: 20px 0;
+      }
 
       .about-grid {
         grid-template-columns: 1fr;
         gap: 28px;
       }
-      .about-text p { font-size: 14px; line-height: 1.75; }
 
-      .section-header { margin-bottom: 36px; }
-      .section-title { font-size: 22px; }
+      .about-text p {
+        font-size: 14px;
+        line-height: 1.75;
+      }
 
-      .skill-name { width: 80px; font-size: 12px; }
-      .skills-categories { gap: 32px; }
+      .section-header {
+        margin-bottom: 36px;
+      }
+
+      .section-title {
+        font-size: 22px;
+      }
+
+      .skill-name {
+        width: 80px;
+        font-size: 12px;
+      }
+
+      .skills-categories {
+        gap: 32px;
+      }
 
       /* Blog: single column on mobile handled by .blog-grid media query */
 
@@ -937,7 +1334,10 @@
         grid-template-columns: 1fr;
         gap: 36px;
       }
-      .contact-intro { font-size: 24px; }
+
+      .contact-intro {
+        font-size: 24px;
+      }
 
       .tweaks-panel {
         bottom: 16px;
@@ -949,695 +1349,903 @@
 
     /* ── SMALL MOBILE ── */
     @media (max-width: 390px) {
-      section { padding: 48px 16px 40px; }
-      .hero-name { font-size: 36px; }
-      .skill-name { width: 70px; }
+      section {
+        padding: 48px 16px 40px;
+      }
+
+      .hero-name {
+        font-size: 36px;
+      }
+
+      .skill-name {
+        width: 70px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div id="root"></div>
+  <div id="root"></div>
 
-<script type="text/babel">
-const { useState, useEffect, useRef, createContext, useContext } = React;
+  <script type="text/babel">
+    const { useState, useEffect, useRef, createContext, useContext } = React;
 
-// ── I18N ──────────────────────────────────────────────
-// 🌐 다국어 텍스트 정의
-// ko / en / ja 각 언어 블록에서 아래 항목들을 수정하세요:
-//   tagline      : 히어로 한줄 소개
-//   about1/2     : About 본문 단락 (HTML 태그 사용 가능, <strong> 등)
-//   profileVals  : 프로필 카드 값 ["도시, 국가", "분야", "상태", "학력"]
-//   contactIntro : Contact 섹션 인트로 문구
-//   contactSub   : Contact 섹션 부제
-// ──────────────────────────────────────────────────────
-const I18N = {
-  ko: {
-    role: "Developer_",
-    eyebrow: "Developer · Game · Interactive",
-    tagline: "항상 공부하는 개발자입니다.",
-    about1: "게임 개발을 중심으로 <strong>인터랙티브한 경험</strong>을 만드는 개발자입니다. 코드 한 줄이 플레이어의 감정을 바꿀 수 있다는 것을 믿으며, 기술과 창의성 사이에서 균형을 찾습니다.",
-    about2: "새로운 기술을 배우는 것을 즐기고, <strong>게임 엔진 내부 구조</strong>와 <strong>최적화</strong>에 관심이 많습니다. 항상 더 좋은 방법이 있다고 생각합니다.",
-    profileLabel: "// profile.json",
-    profileKeys: ["위치", "관심분야", "현황", "학력"],
-    profileVals: ["Seoul, KR", "Game Dev", "Available", "CS / Game"],
-    navItems: ["About", "Skills", "Blog", "Contact"],
-    secTitles: ["About", "Skills", "Blog", "Contact"],
-    catEngine: "GAME ENGINE", catLang: "LANGUAGES", catTools: "TOOLS & OTHERS",
-    contactIntro: "함께 만들어봐요.",
-    contactSub: "새로운 프로젝트, 협업 제안, 혹은 그냥 안녕 인사도 환영합니다.",
-    formLabels: ["Name", "Email", "Message"],
-    formPH: ["이름을 입력해주세요", "이메일 주소", "무슨 이야기든 자유롭게..."],
-    formSubmit: "Send Message →", formSending: "보내는 중...",
-    successCode: "// message_sent.ok", successTitle: "메시지를 보냈습니다 ✓",
-    successSub: "곧 연락드리겠습니다. 감사합니다!", resend: "다시 보내기",
-    errs: ["이름을 입력해주세요", "이메일을 입력해주세요", "올바른 이메일 형식이 아닙니다", "메시지를 입력해주세요"],
-    sendError: "전송에 실패했습니다. 잠시 후 다시 시도해주세요.",
-    setupCode: "// setup_required", setupTitle: "Formspree 연결이 필요합니다",
-    setupSteps: ['formspree.io 에서 무료 가입', 'New Form 생성 → 엔드포인트 URL 복사', 'Tweaks 패널 → "Formspree URL" 에 붙여넣기'],
-    setupBack: "돌아가기", readMin: "min read", showMore: "더보기", showLess: "접기", viewAllBlog: "블로그 전체 보기 →",
-    footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
-    tweaksThemeLabel: "Theme Variant",
-    tweaksThemeOpts: ["Warm Editorial — 기본", "Debug Mono — 그리드, 모노스페이스", "Dark Slate — 다크 모드"],
-    tweaksFormspreeLabel: "Formspree URL",
-  },
-  en: {
-    role: "Developer_",
-    eyebrow: "Developer · Game · Interactive",
-    tagline: "Always learning, always building.",
-    about1: "A developer creating <strong>interactive experiences</strong> through game development. I believe a single line of code can change how a player feels — I seek balance between technology and creativity.",
-    about2: "I love learning new technologies and have a deep interest in <strong>game engine internals</strong> and <strong>optimization</strong>. There's always a better way.",
-    profileLabel: "// profile.json",
-    profileKeys: ["Location", "Focus", "Status", "Education"],
-    profileVals: ["Seoul, KR", "Game Dev", "Available", "CS / Game"],
-    navItems: ["About", "Skills", "Blog", "Contact"],
-    secTitles: ["About", "Skills", "Blog", "Contact"],
-    catEngine: "GAME ENGINE", catLang: "LANGUAGES", catTools: "TOOLS & OTHERS",
-    contactIntro: "Let's build something.",
-    contactSub: "Open to new projects, collaborations, or just a friendly hello.",
-    formLabels: ["Name", "Email", "Message"],
-    formPH: ["Your name", "Email address", "Whatever's on your mind..."],
-    formSubmit: "Send Message →", formSending: "Sending...",
-    successCode: "// message_sent.ok", successTitle: "Message sent ✓",
-    successSub: "I'll get back to you soon. Thank you!", resend: "Send another",
-    errs: ["Please enter your name", "Please enter your email", "Invalid email format", "Please enter a message"],
-    sendError: "Failed to send. Please try again later.",
-    setupCode: "// setup_required", setupTitle: "Formspree setup needed",
-    setupSteps: ["Sign up free at formspree.io", "Create a New Form → Copy endpoint URL", 'Tweaks panel → paste into "Formspree URL"'],
-    setupBack: "Go back", readMin: "min read", showMore: "Show more", showLess: "Show less", viewAllBlog: "View all posts →",
-    footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
-    tweaksThemeLabel: "Theme Variant",
-    tweaksThemeOpts: ["Warm Editorial — default", "Debug Mono — grid & monospace", "Dark Slate — dark mode"],
-    tweaksFormspreeLabel: "Formspree URL",
-  },
-  ja: {
-    role: "Developer_",
-    eyebrow: "Developer · Game · Interactive",
-    tagline: "常に学び、常に作り続ける開発者です。",
-    about1: "ゲーム開発を中心に<strong>インタラクティブな体験</strong>を生み出す開発者です。コードの一行がプレイヤーの感情を変えられると信じ、技術と創造性のバランスを追求しています。",
-    about2: "新しい技術を学ぶことが好きで、<strong>ゲームエンジンの内部構造</strong>と<strong>最適化</strong>に強い関心があります。常により良い方法があると考えています。",
-    profileLabel: "// profile.json",
-    profileKeys: ["所在地", "専門", "状況", "学歴"],
-    profileVals: ["Seoul, KR", "Game Dev", "Available", "CS / Game"],
-    navItems: ["About", "Skills", "Blog", "Contact"],
-    secTitles: ["About", "Skills", "Blog", "Contact"],
-    catEngine: "ゲームエンジン", catLang: "言語", catTools: "ツール & その他",
-    contactIntro: "一緒に作りましょう。",
-    contactSub: "新しいプロジェクト、コラボ提案、または気軽なご挨拶もお待ちしています。",
-    formLabels: ["お名前", "メール", "メッセージ"],
-    formPH: ["お名前を入力してください", "メールアドレス", "お気軽にどうぞ..."],
-    formSubmit: "送信する →", formSending: "送信中...",
-    successCode: "// message_sent.ok", successTitle: "メッセージを送りました ✓",
-    successSub: "すぐにご連絡します。ありがとうございます！", resend: "もう一度送る",
-    errs: ["名前を入力してください", "メールを入力してください", "正しいメール形式ではありません", "メッセージを入力してください"],
-    sendError: "送信に失敗しました。しばらくしてからお試しください。",
-    setupCode: "// setup_required", setupTitle: "Formspreeの設定が必要です",
-    setupSteps: ["formspree.ioで無料登録", "New Form作成 → エンドポイントURLをコピー", "TweaksパネルのFormspree URLに貼り付け"],
-    setupBack: "戻る", readMin: "分で読める", showMore: "もっと見る", showLess: "閉じる", viewAllBlog: "ブログをすべて見る →",
-    footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
-    tweaksThemeLabel: "テーマ",
-    tweaksThemeOpts: ["Warm Editorial — デフォルト", "Debug Mono — グリッド & モノスペース", "Dark Slate — ダークモード"],
-    tweaksFormspreeLabel: "Formspree URL",
-  },
-};
+    // ── I18N ──────────────────────────────────────────────
+    // 🌐 다국어 텍스트 정의
+    // ko / en / ja 각 언어 블록에서 아래 항목들을 수정하세요:
+    //   tagline      : 히어로 한줄 소개
+    //   about1/2     : About 본문 단락 (HTML 태그 사용 가능, <strong> 등)
+    //   profileVals  : 프로필 카드 값 ["도시, 국가", "분야", "상태", "학력"]
+    //   contactIntro : Contact 섹션 인트로 문구
+    //   contactSub   : Contact 섹션 부제
+    // ──────────────────────────────────────────────────────
+    const I18N = {
+      ko: {
+        role: "kghm123",
+        eyebrow: "Developer · Game · Interactive · XR",
+        tagline: "항상 공부하는 개발자입니다.",
+        about1: "게임 개발을 중심으로 <strong>인터랙티브한 경험</strong>을 만드는 개발자입니다. 코드 한 줄이 플레이어의 감정을 바꿀 수 있다는 것을 믿으며, 기술과 창의성 사이에서 균형을 찾습니다.",
+        about2: "새로운 기술을 배우는 것을 즐기고, <strong>게임 엔진 내부 구조</strong>와 <strong>최적화</strong>에 관심이 많습니다. 항상 더 좋은 방법이 있다고 생각합니다.",
+        about3: "현재 일본 오사카에서 <strong>게임 / CG / XR 분야</strong>의 취업을 준비하고 있습니다.",
+        profileLabel: "About ME",
+        profileKeys: ["위치", "관심분야", "현황", "학력"],
+        profileVals: ["Osaka, JP", "CG / Game / XR", "Job Hunting", "Bachelor of Software Application"],
+        navItems: ["About", "Projects", "Skills", "Blog", "Contact"],
+        secTitles: ["About", "Projects", "Skills", "Blog", "Contact"],
+        catEngine: "GAME ENGINE", catLang: "LANGUAGES", catTools: "TOOLS & OTHERS",
+        contactIntro: "함께 만들어봐요.",
+        contactSub: "새로운 프로젝트, 협업 제안, 혹은 그냥 안녕 인사도 환영합니다.",
+        formLabels: ["Name", "Email", "Message"],
+        formPH: ["이름을 입력해주세요", "이메일 주소", "무슨 이야기든 자유롭게..."],
+        formSubmit: "Send Message →", formSending: "보내는 중...",
+        successCode: "// message_sent.ok", successTitle: "메시지를 보냈습니다 ✓",
+        successSub: "곧 연락드리겠습니다. 감사합니다!", resend: "다시 보내기",
+        errs: ["이름을 입력해주세요", "이메일을 입력해주세요", "올바른 이메일 형식이 아닙니다", "메시지를 입력해주세요"],
+        sendError: "전송에 실패했습니다. 잠시 후 다시 시도해주세요.",
+        setupCode: "// setup_required", setupTitle: "Formspree 연결이 필요합니다",
+        setupSteps: ['formspree.io 에서 무료 가입', 'New Form 생성 → 엔드포인트 URL 복사', 'Tweaks 패널 → "Formspree URL" 에 붙여넣기'],
+        setupBack: "돌아가기", readMin: "min read", showMore: "더보기", showLess: "접기", viewAllBlog: "블로그 전체 보기 →",
+        footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
+        tweaksThemeLabel: "Theme Variant",
+        tweaksThemeOpts: ["Warm Editorial — 기본", "Debug Mono — 그리드, 모노스페이스", "Dark Slate — 다크 모드"],
+        tweaksFormspreeLabel: "Formspree URL",
+      },
+      en: {
+        role: "kghm123",
+        eyebrow: "Developer · Game · Interactive · XR",
+        tagline: "Always learning, always building.",
+        about1: "A developer creating <strong>interactive experiences</strong> through game development. I believe a single line of code can change how a player feels — I seek balance between technology and creativity.",
+        about2: "I love learning new technologies and have a deep interest in <strong>game engine internals</strong> and <strong>optimization</strong>. There's always a better way.",
+        about3: "Currently preparing for a career in the <strong>Game / CG / XR field</strong> in Osaka, Japan.",
+        profileLabel: "About ME",
+        profileKeys: ["Location", "Focus", "Status", "Education"],
+        profileVals: ["Osaka, JP", "CG / Game / XR", "Job Hunting", "Bachelor of Software Application"],
+        navItems: ["About", "Projects", "Skills", "Blog", "Contact"],
+        secTitles: ["About", "Projects", "Skills", "Blog", "Contact"],
+        catEngine: "GAME ENGINE", catLang: "LANGUAGES", catTools: "TOOLS & OTHERS",
+        contactIntro: "Let's build something.",
+        contactSub: "Open to new projects, collaborations, or just a friendly hello.",
+        formLabels: ["Name", "Email", "Message"],
+        formPH: ["Your name", "Email address", "Whatever's on your mind..."],
+        formSubmit: "Send Message →", formSending: "Sending...",
+        successCode: "// message_sent.ok", successTitle: "Message sent ✓",
+        successSub: "I'll get back to you soon. Thank you!", resend: "Send another",
+        errs: ["Please enter your name", "Please enter your email", "Invalid email format", "Please enter a message"],
+        sendError: "Failed to send. Please try again later.",
+        setupCode: "// setup_required", setupTitle: "Formspree setup needed",
+        setupSteps: ["Sign up free at formspree.io", "Create a New Form → Copy endpoint URL", 'Tweaks panel → paste into "Formspree URL"'],
+        setupBack: "Go back", readMin: "min read", showMore: "Show more", showLess: "Show less", viewAllBlog: "View all posts →",
+        footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
+        tweaksThemeLabel: "Theme Variant",
+        tweaksThemeOpts: ["Warm Editorial — default", "Debug Mono — grid & monospace", "Dark Slate — dark mode"],
+        tweaksFormspreeLabel: "Formspree URL",
+      },
+      ja: {
+        role: "kghm123",
+        eyebrow: "Developer · Game · Interactive · XR",
+        tagline: "常に学び、常に作り続ける開発者です。",
+        about1: "ゲーム開発を中心に<strong>インタラクティブな体験</strong>を生み出す開発者です。コードの一行がプレイヤーの感情を変えられると信じ、技術と創造性のバランスを追求しています。",
+        about2: "新しい技術を学ぶことが好きで、<strong>ゲームエンジンの内部構造</strong>と<strong>最適化</strong>に強い関心があります。常により良い方法があると考えています。",
+        about3: "現在、日本の大阪で<strong>ゲーム / CG / XR分野</strong>の就職を目指しています。",
+        profileLabel: "About ME",
+        profileKeys: ["所在地", "専門", "状況", "学歴"],
+        profileVals: ["Osaka, JP", "CG / Game / XR", "Job Hunting", "Bachelor of Software Application"],
+        navItems: ["About", "Projects", "Skills", "Blog", "Contact"],
+        secTitles: ["About", "Projects", "Skills", "Blog", "Contact"],
+        catEngine: "ゲームエンジン", catLang: "言語", catTools: "ツール & その他",
+        contactIntro: "一緒に作りましょう。",
+        contactSub: "新しいプロジェクト、コラボ提案、または気軽なご挨拶もお待ちしています。",
+        formLabels: ["お名前", "メール", "メッセージ"],
+        formPH: ["お名前を入力してください", "メールアドレス", "お気軽にどうぞ..."],
+        formSubmit: "送信する →", formSending: "送信中...",
+        successCode: "// message_sent.ok", successTitle: "メッセージを送りました ✓",
+        successSub: "すぐにご連絡します。ありがとうございます！", resend: "もう一度送る",
+        errs: ["名前を入力してください", "メールを入力してください", "正しいメール形式ではありません", "メッセージを入力してください"],
+        sendError: "送信に失敗しました。しばらくしてからお試しください。",
+        setupCode: "// setup_required", setupTitle: "Formspreeの設定が必要です",
+        setupSteps: ["formspree.ioで無料登録", "New Form作成 → エンドポイントURLをコピー", "TweaksパネルのFormspree URLに貼り付け"],
+        setupBack: "戻る", readMin: "分で読める", showMore: "もっと見る", showLess: "閉じる", viewAllBlog: "ブログをすべて見る →",
+        footer: "© 2026 KIM Hyogyeom\nAll rights reserved.",
+        tweaksThemeLabel: "テーマ",
+        tweaksThemeOpts: ["Warm Editorial — デフォルト", "Debug Mono — グリッド & モノスペース", "Dark Slate — ダークモード"],
+        tweaksFormspreeLabel: "Formspree URL",
+      },
+    };
 
-const LangContext = createContext('ko');
-const useLang = () => {
-  const lang = useContext(LangContext);
-  return I18N[lang];
-};
-// ──────────────────────────────────────────────────────
+    const LangContext = createContext('ko');
+    const useLang = () => {
+      const lang = useContext(LangContext);
+      return I18N[lang];
+    };
+    // ──────────────────────────────────────────────────────
 
-// hooks already destructured above
+    // hooks already destructured above
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "warm",
-  "accentColor": "#c8a97e",
-  "formspreeEndpoint": "https:\/\/formspree.io\/f\/xgorlwda"
-}/*EDITMODE-END*/;
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "theme": "warm",
+      "accentColor": "#c8a97e",
+      "formspreeEndpoint": "https:\/\/formspree.io\/f\/xgorlwda"
+    }/*EDITMODE-END*/;
 
-// ================================================================
-// ✏️  직접 수정할 데이터 영역
-// ================================================================
+    // ================================================================
+    // ✏️  직접 수정할 데이터 영역
+    // ================================================================
 
-// ── 스킬 바 (이름 + 숙련도 0~100) ────────────────────────────────
-const SKILLS_DATA = [
-  { catKey: "catEngine", items: [
-    { name: "Unity", level: 90 },
-    { name: "Unreal Engine", level: 65 },
-  ]},
-  { catKey: "catLang", items: [
-    { name: "C#", level: 88 },
-    { name: "C++", level: 72 },
-    { name: "Python", level: 60 },
-  ]},
-];
+    // ── 스킬 바 (이름 + 숙련도 0~100) ────────────────────────────────
+    const SKILLS_DATA = [
+      {
+        catKey: "catEngine", items: [
+          { name: "Unreal Engine", level: 90 },
+          { name: "Unity", level: 70 },
+          { name: "Defold", level: 30 },
+        ]
+      },
+      {
+        catKey: "catLang", items: [
+          { name: "C++", level: 85 },
+          { name: "C#", level: 50 },
+          { name: "Python", level: 40 },
+        ]
+      },
+    ];
 
-// ── 태그 목록 (툴, 프레임워크 등 자유롭게 추가/삭제) ─────────────
-const TOOLS = ["Git", "GitHub", "Visual Studio", "VS Code", "Rider", "Blender", "Photoshop", "Figma", "FMOD", "Perforce"];
+    // ── 태그 목록 (툴, 프레임워크 등 자유롭게 추가/삭제) ─────────────
+    const TOOLS = ["GitHub", "Visual Studio", "VS Code", "Rider", "3DPrinter", "ESP32", "OA"];
 
-// ── 블로그 포스트 ────────────────────────────────────────────────
-// date      : 표시할 날짜 (형식 자유)
-// title     : 언어별 제목 (ko/en/ja)
-// excerpt   : 언어별 한줄 요약 (ko/en/ja)
-// tag       : 우측 상단 카테고리 뱃지
-// views     : 조회수 표시 문자열
-// readTime  : 읽는 시간 (숫자만, 단위는 자동 붙음)
-// href      : 언어별 링크 URL — 실제 블로그 주소로 교체하세요
-// color     : 썸네일 배경색 (hex)
-const POSTS = [
-  {
-    date: "2025.12",
-    title: { ko: "Unity DOTS로 대규모 NPC 시뮬레이션 최적화하기", en: "Optimizing Large-Scale NPC Simulation with Unity DOTS", ja: "Unity DOTSで大規模NPCシミュレーションを最適化する" },
-    excerpt: { ko: "Entity Component System과 Job System을 활용한 성능 개선 사례 분석.", en: "A case study on performance improvements using ECS and the Job System.", ja: "ECSとJob Systemを活用したパフォーマンス改善の事例分析。" },
-    tag: "UNITY", views: "1.2k", readTime: "8",
-    href: { ko: "#", en: "#", ja: "#" },
-    color: "#d4c4a8"
-  },
-  {
-    date: "2025.09",
-    title: { ko: "게임 수학: 쿼터니언을 직관적으로 이해하는 법", en: "Game Math: Understanding Quaternions Intuitively", ja: "ゲーム数学：クォータニオンを直感的に理解する方法" },
-    excerpt: { ko: "3D 회전을 다루는 개발자라면 한번쯤 고민하게 되는 쿼터니언에 대한 정리.", en: "A clear breakdown of quaternions for developers working with 3D rotations.", ja: "3D回転を扱う開発者が一度は悩むクォータニオンの整理。" },
-    tag: "MATH", views: "3.4k", readTime: "12",
-    href: { ko: "#", en: "#", ja: "#" },
-    color: "#c4b89a"
-  },
-  {
-    date: "2025.06",
-    title: { ko: "C# async/await 패턴을 게임 로직에 적용하기", en: "Applying C# async/await Patterns to Game Logic", ja: "C# async/awaitパターンをゲームロジックに適用する" },
-    excerpt: { ko: "코루틴 대신 비동기 패턴을 도입했을 때 얻을 수 있는 것들.", en: "What you gain by adopting async patterns instead of coroutines.", ja: "コルーチンの代わりに非同期パターンを導入したときに得られるもの。" },
-    tag: "C#", views: "876", readTime: "6",
-    href: { ko: "#", en: "#", ja: "#" },
-    color: "#bfad90"
-  },
-  {
-    date: "2025.03",
-    title: { ko: "인디 게임 프로토타이핑: 48시간 게임잼 회고", en: "Indie Game Prototyping: 48-Hour Game Jam Retrospective", ja: "インディゲームプロトタイピング：48時間ゲームジャム振り返り" },
-    excerpt: { ko: "48시간 동안 팀원 3명과 함께 만든 게임, 무엇을 배웠나.", en: "What we learned making a game with 3 teammates in 48 hours.", ja: "チームメンバー3人と48時間で作ったゲームから学んだこと。" },
-    tag: "RETROSPECT", views: "2.1k", readTime: "10",
-    href: { ko: "#", en: "#", ja: "#" },
-    color: "#cabbA0"
-  },
-];
+    // ── 블로그 포스트 ────────────────────────────────────────────────
+    // date      : 표시할 날짜 (형식 자유)
+    // title     : 언어별 제목 (ko/en/ja)
+    // excerpt   : 언어별 한줄 요약 (ko/en/ja)
+    // tag       : 우측 상단 카테고리 뱃지
+    // views     : 조회수 표시 문자열
+    // readTime  : 읽는 시간 (숫자만, 단위는 자동 붙음)
+    // href      : 언어별 링크 URL — 실제 블로그 주소로 교체하세요
+    // color     : 썸네일 배경색 (hex)
+    const POSTS = [
+      {
+        date: "2025.12",
+        title: { ko: "Unity DOTS로 대규모 NPC 시뮬레이션 최적화하기", en: "Optimizing Large-Scale NPC Simulation with Unity DOTS", ja: "Unity DOTSで大規模NPCシミュレーションを最適化する" },
+        excerpt: { ko: "Entity Component System과 Job System을 활용한 성능 개선 사례 분석.", en: "A case study on performance improvements using ECS and the Job System.", ja: "ECSとJob Systemを活用したパフォーマンス改善の事例分析。" },
+        tag: "UNITY", views: "1.2k", readTime: "8",
+        href: { ko: "#", en: "#", ja: "#" },
+        color: "#d4c4a8"
+      },
+      {
+        date: "2025.09",
+        title: { ko: "게임 수학: 쿼터니언을 직관적으로 이해하는 법", en: "Game Math: Understanding Quaternions Intuitively", ja: "ゲーム数学：クォータニオンを直感的に理解する方法" },
+        excerpt: { ko: "3D 회전을 다루는 개발자라면 한번쯤 고민하게 되는 쿼터니언에 대한 정리.", en: "A clear breakdown of quaternions for developers working with 3D rotations.", ja: "3D回転を扱う開発者が一度は悩むクォータニオンの整理。" },
+        tag: "MATH", views: "3.4k", readTime: "12",
+        href: { ko: "#", en: "#", ja: "#" },
+        color: "#c4b89a"
+      },
+      {
+        date: "2025.06",
+        title: { ko: "C# async/await 패턴을 게임 로직에 적용하기", en: "Applying C# async/await Patterns to Game Logic", ja: "C# async/awaitパターンをゲームロジックに適用する" },
+        excerpt: { ko: "코루틴 대신 비동기 패턴을 도입했을 때 얻을 수 있는 것들.", en: "What you gain by adopting async patterns instead of coroutines.", ja: "コルーチンの代わりに非同期パターンを導入したときに得られるもの。" },
+        tag: "C#", views: "876", readTime: "6",
+        href: { ko: "#", en: "#", ja: "#" },
+        color: "#bfad90"
+      },
+      {
+        date: "2025.03",
+        title: { ko: "인디 게임 프로토타이핑: 48시간 게임잼 회고", en: "Indie Game Prototyping: 48-Hour Game Jam Retrospective", ja: "インディゲームプロトタイピング：48時間ゲームジャム振り返り" },
+        excerpt: { ko: "48시간 동안 팀원 3명과 함께 만든 게임, 무엇을 배웠나.", en: "What we learned making a game with 3 teammates in 48 hours.", ja: "チームメンバー3人と48時間で作ったゲームから学んだこと。" },
+        tag: "RETROSPECT", views: "2.1k", readTime: "10",
+        href: { ko: "#", en: "#", ja: "#" },
+        color: "#cabbA0"
+      },
+    ];
 
-// ---------- HOOKS ----------
-function useIntersection(ref, options = {}) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true);
-        obs.disconnect();
+    // ── 포트폴리오 프로젝트 데이터 ──────────────────────────────────────────
+    const PROJECTS_DATA = [
+      {
+        id: "project-a",
+        title: { ko: "프로젝트 A: 어반 시뮬레이터", en: "Project A: Urban Simulator", ja: "プロジェクト A: アーバン・シミュレーター" },
+        summary: { ko: "언리얼 엔진 5 기반 대규모 도시 환경 렌더링 최적화", en: "Large-scale urban environment rendering optimization in UE5", ja: "UE5ベースの大規模都市環境レンダリング最適化" },
+        role: "Graphics / Engine Programmer",
+        period: "25.01 - 25.10",
+        techStack: ["Unreal Engine 5", "C++", "HLSL"],
+        color: "#c8a97e"
+      },
+      {
+        id: "project-b",
+        title: { ko: "프로젝트 B: 인터랙티브 웹 전시", en: "Project B: Interactive Web Exhibition", ja: "プロジェクト B: インタラクティブ Web 展示" },
+        summary: { ko: "React와 Three.js를 활용한 웹 3D 갤러리", en: "Web 3D gallery using React and Three.js", ja: "ReactとThree.jsを活用したWeb 3Dギャラリー" },
+        role: "Frontend Developer",
+        period: "24.08 - 24.12",
+        techStack: ["React", "Three.js", "WebGL"],
+        color: "#bfad90"
       }
-    }, { threshold: 0.15, ...options });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return visible;
-}
+    ];
 
-// ---------- COMPONENTS ----------
-function AnimDiv({ children, className = '', delay = 0, tag: Tag = 'div', style = {} }) {
-  const ref = useRef();
-  const visible = useIntersection(ref);
-  return (
-    <Tag
-      ref={ref}
-      className={`anim${visible ? ' visible' : ''}${className ? ' ' + className : ''}`}
-      style={{ transitionDelay: delay + 's', ...style }}
-    >
-      {children}
-    </Tag>
-  );
-}
+    // ---------- HOOKS ----------
+    function useIntersection(ref, options = {}) {
+      const [visible, setVisible] = useState(false);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            obs.disconnect();
+          }
+        }, { threshold: 0.15, ...options });
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, []);
+      return visible;
+    }
 
-function SectionHeader({ num, title }) {
-  return (
-    <div className="section-header">
-      <span className="section-num">{num}</span>
-      <h2 className="section-title">{title}</h2>
-      <div className="section-line" />
-    </div>
-  );
-}
+    // ---------- COMPONENTS ----------
+    function AnimDiv({ children, className = '', delay = 0, tag: Tag = 'div', style = {} }) {
+      const ref = useRef();
+      const visible = useIntersection(ref);
+      return (
+        <Tag
+          ref={ref}
+          className={`anim${visible ? ' visible' : ''}${className ? ' ' + className : ''}`}
+          style={{ transitionDelay: delay + 's', ...style }}
+        >
+          {children}
+        </Tag>
+      );
+    }
 
-function HeroSection() {
-  const t = useLang();
-  const ref = useRef();
-  const visible = useIntersection(ref, { threshold: 0.05 });
-  // ── About 카드 정보 ─────────────────────────────────────────────
-  // profileKeys/profileVals 는 I18N 객체 안에 있습니다 (아래 참고)
-  // I18N.ko.profileVals, I18N.en.profileVals, I18N.ja.profileVals 를 수정하세요
-  return (
-    <section id="about-section" ref={ref} className={`hero${visible ? ' visible' : ''}`} data-screen-label="01 About">
-      <div className="hero-eyebrow">{t.eyebrow}</div>
-      <h1 className="hero-name">KIM<br/><span>Hyogyeom</span></h1>
-      <div className="hero-divider" />
-      <p className="hero-tagline">{t.tagline}</p>
-
-      <AnimDiv style={{ marginTop: 56 }}>
-        <div className="about-grid">
-          <div className="about-text">
-            <p dangerouslySetInnerHTML={{ __html: t.about1 }} />
-            <p dangerouslySetInnerHTML={{ __html: t.about2 }} />
-          </div>
-          <div className="about-card">
-            <div className="about-card-label">{t.profileLabel}</div>
-            {t.profileKeys.map((k, i) => (
-              <div className="about-info-row" key={k}>
-                <span className="about-info-key">{k}</span>
-                <span className="about-info-val">{t.profileVals[i]}</span>
-              </div>
-            ))}
-          </div>
+    function SectionHeader({ num, title }) {
+      return (
+        <div className="section-header">
+          <span className="section-num">{num}</span>
+          <h2 className="section-title">{title}</h2>
+          <div className="section-line" />
         </div>
-      </AnimDiv>
-    </section>
-  );
-}
+      );
+    }
 
-function SkillBar({ name, level, animate }) {
-  return (
-    <div className="skill-row">
-      <span className="skill-name">{name}</span>
-      <div className="skill-bar-track">
-        <div
-          className="skill-bar-fill"
-          style={{ width: animate ? level + '%' : '0%' }}
-        />
-      </div>
-      <span className="skill-level">{level}</span>
-    </div>
-  );
-}
+    function HeroSection() {
+      const t = useLang();
+      const lang = useContext(LangContext);
+      const ref = useRef();
+      const visible = useIntersection(ref, { threshold: 0.05 });
+      // ── About 카드 정보 ─────────────────────────────────────────────
+      // profileKeys/profileVals 는 I18N 객체 안에 있습니다 (아래 참고)
+      // I18N.ko.profileVals, I18N.en.profileVals, I18N.ja.profileVals 를 수정하세요
+      return (
+        <section id="about-section" ref={ref} className={`hero${visible ? ' visible' : ''}`} data-screen-label="01 About">
+          <div className="hero-eyebrow">{t.eyebrow}</div>
+          <h1 className="hero-name">KIM<br /><span>Hyogyeom</span></h1>
+          <div className="hero-divider" />
+          <p className="hero-tagline">{t.tagline}</p>
 
-function SkillsSection() {
-  const t = useLang();
-  const ref = useRef();
-  const visible = useIntersection(ref);
-  return (
-    <section id="skills-section" ref={ref} data-screen-label="02 Skills">
-      <SectionHeader num="02" title={t.secTitles[1]} />
-      <div className="skills-categories">
-        {SKILLS_DATA.map((cat, ci) => (
-          <AnimDiv key={cat.catKey} delay={ci * 0.1}>
-            <div className="skill-cat-title">{t[cat.catKey]}</div>
-            <div className="skill-list">
-              {cat.items.map((s) => (
-                <SkillBar key={s.name} name={s.name} level={s.level} animate={visible} />
-              ))}
+          <AnimDiv style={{ marginTop: 56 }}>
+            <div className="about-grid">
+              <div className="about-text">
+                <p dangerouslySetInnerHTML={{ __html: t.about1 }} />
+                <p dangerouslySetInnerHTML={{ __html: t.about2 }} />
+                <p dangerouslySetInnerHTML={{ __html: t.about3 }} />
+              </div>
+              <div className="about-card">
+                <div className="about-card-label">{t.profileLabel}</div>
+                {t.profileKeys.map((k, i) => (
+                  <div className="about-info-row" key={k}>
+                    <span className="about-info-key">{k}</span>
+                    <span className="about-info-val">{t.profileVals[i]}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimDiv>
-        ))}
-        <AnimDiv delay={0.3}>
-          <div className="skill-cat-title">{t.catTools}</div>
-          <div className="skills-tags">
-            {TOOLS.map(tool => <span className="skill-tag" key={tool}>{tool}</span>)}
-          </div>
-        </AnimDiv>
-      </div>
-    </section>
-  );
-}
+        </section>
+      );
+    }
 
-function BlogThumb({ color, tag }) {
-  const stripeColor = color;
-  const stripeLight = color + '80';
-  return (
-    <div className="blog-thumb">
-      <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="225" fill={stripeLight}/>
-        {Array.from({length: 18}).map((_, i) => (
-          <rect key={i} x={i * 24 - 12} y="0" width="12" height="225" fill={stripeColor} opacity="0.35"/>
-        ))}
-        <rect x="0" y="0" width="400" height="225" fill="none" stroke={stripeColor} strokeWidth="1" opacity="0.3"/>
-      </svg>
-      <div className="blog-thumb-label">thumbnail — {tag}</div>
-      <div className="blog-thumb-overlay"/>
-    </div>
-  );
-}
-
-// ── 블로그 전체 보기 링크 — 언어별 블로그 주소로 교체하세요 ─────
-const BLOG_URL = { ko: "#", en: "#", ja: "#" };
-// 기본 표시 포스트 수 (더보기 전)
-const BLOG_PREVIEW_COUNT = 4;
-
-function BlogSection() {
-  const t = useLang();
-  const lang = useContext(LangContext);
-  const [expanded, setExpanded] = useState(false);
-  const visiblePosts = expanded ? POSTS : POSTS.slice(0, BLOG_PREVIEW_COUNT);
-  const hasMore = POSTS.length > BLOG_PREVIEW_COUNT;
-
-  return (
-    <section id="blog-section" data-screen-label="03 Blog">
-      <SectionHeader num="03" title={t.secTitles[2]} />
-      <div className="blog-grid">
-        {visiblePosts.map((p, i) => {
-          const href = p.href[lang] || p.href.ko || '#';
-          const title = p.title[lang] || p.title.ko;
-          const excerpt = p.excerpt[lang] || p.excerpt.ko;
-          return (
-            <AnimDiv key={i} delay={i * 0.06}>
-              <a href={href} target="_blank" rel="noopener noreferrer" className="blog-card">
-                <BlogThumb color={p.color} tag={p.tag} />
-                <div className="blog-card-body">
-                  <div className="blog-card-meta">
-                    <span className="blog-card-tag">{p.tag}</span>
-                    <span className="blog-card-date">{p.date}</span>
-                    <span className="blog-card-views">👁 {p.views}</span>
-                  </div>
-                  <div className="blog-card-title">{title}</div>
-                  <div className="blog-card-excerpt">{excerpt}</div>
-                  <div className="blog-card-footer">
-                    <span className="blog-card-read">{p.readTime} {t.readMin}</span>
-                    <span className="blog-card-arrow">↗</span>
-                  </div>
-                </div>
-              </a>
-            </AnimDiv>
-          );
-        })}
-      </div>
-      <div className="blog-actions">
-        {hasMore && (
-          <button className="blog-more-btn" onClick={() => setExpanded(e => !e)}>
-            {expanded ? t.showLess : t.showMore}
-            <span className="blog-more-icon">{expanded ? '↑' : '↓'}</span>
-          </button>
-        )}
-        <a href={BLOG_URL[lang] || '#'} target="_blank" rel="noopener noreferrer" className="blog-all-link">
-          {t.viewAllBlog}
-        </a>
-      </div>
-    </section>
-  );
-}
-
-function ContactSection({ endpoint }) {
-  const t = useLang();
-  const [status, setStatus] = useState('idle');
-  const [fields, setFields] = useState({ name: '', email: '', message: '' });
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const e = {};
-    if (!fields.name.trim()) e.name = t.errs[0];
-    if (!fields.email.trim()) e.email = t.errs[1];
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) e.email = t.errs[2];
-    if (!fields.message.trim()) e.message = t.errs[3];
-    return e;
-  };
-
-  const handleChange = (k, v) => {
-    setFields(f => ({ ...f, [k]: v }));
-    if (errors[k]) setErrors(e => ({ ...e, [k]: null }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    if (!endpoint) { setStatus('no-endpoint'); return; }
-    setStatus('loading');
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name: fields.name, email: fields.email, message: fields.message }),
-      });
-      if (res.ok) { setStatus('success'); }
-      else { setStatus('error'); }
-    } catch { setStatus('error'); }
-  };
-
-  const fieldKeys = ['name', 'email', 'message'];
-
-  return (
-    <section id="contact-section" data-screen-label="04 Contact">
-      <SectionHeader num="04" title={t.secTitles[3]} />
-      <div className="contact-grid">
-        <AnimDiv>
-          <div className="contact-intro">{t.contactIntro}</div>
-          <p className="contact-sub">{t.contactSub}</p>
-          <div className="contact-links">
-          {/* ── 소셜/연락처 링크 — href와 label을 실제 정보로 교체하세요 ── */}
-            {[
-              { icon: "GH", label: "github.com/hyogyeom", href: "https://github.com/hyogyeom" },
-              { icon: "ML", label: "hello@hyogyeom.dev", href: "mailto:hello@hyogyeom.dev" },
-              { icon: "LI", label: "linkedin.com/in/hyogyeom", href: "https://linkedin.com/in/hyogyeom" },
-            ].map(l => (
-              <a className="contact-link" href={l.href} key={l.icon} target="_blank" rel="noopener noreferrer">
-                <div className="contact-link-icon">{l.icon}</div>
-                <span>{l.label}</span>
-              </a>
-            ))}
-          </div>
-        </AnimDiv>
-        <AnimDiv delay={0.15}>
-          {status === 'success' ? (
-            <div style={{ padding: '48px 0' }}>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)', marginBottom: 14, letterSpacing: '0.1em' }}>{t.successCode}</div>
-              <div style={{ fontSize: 20, fontWeight: 600, marginBottom: 8 }}>{t.successTitle}</div>
-              <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.6 }}>{t.successSub}</div>
-              <button className="form-btn" style={{ marginTop: 28, width: 'fit-content' }}
-                onClick={() => { setStatus('idle'); setFields({ name:'', email:'', message:'' }); }}>
-                {t.resend}
-              </button>
-            </div>
-          ) : status === 'no-endpoint' ? (
-            <div style={{ padding: '32px', background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--accent)', marginBottom: 12, letterSpacing: '0.1em' }}>{t.setupCode}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{t.setupTitle}</div>
-              <ol style={{ fontSize: 12, color: 'var(--fg2)', lineHeight: 2, paddingLeft: 18 }}>
-                {t.setupSteps.map((s, i) => <li key={i}>{s}</li>)}
-              </ol>
-              <button className="form-btn" style={{ marginTop: 20, width: 'fit-content', fontSize: 11 }} onClick={() => setStatus('idle')}>
-                {t.setupBack}
-              </button>
-            </div>
-          ) : (
-            <form className="contact-form" onSubmit={handleSubmit} noValidate>
-              {fieldKeys.map((k, i) => (
-                <div className="form-field" key={k}>
-                  <label className="form-label">{t.formLabels[i]}</label>
-                  {k === 'message' ? (
-                    <textarea className={`form-textarea${errors[k] ? ' form-input-error' : ''}`}
-                      placeholder={t.formPH[2]} value={fields[k]}
-                      onChange={e => handleChange(k, e.target.value)} />
-                  ) : (
-                    <input className={`form-input${errors[k] ? ' form-input-error' : ''}`}
-                      type={k === 'email' ? 'email' : 'text'}
-                      placeholder={t.formPH[i]} value={fields[k]}
-                      onChange={e => handleChange(k, e.target.value)} />
-                  )}
-                  {errors[k] && <span style={{ fontFamily: 'var(--mono)', fontSize: 10, color: '#c0553a', marginTop: 2 }}>{errors[k]}</span>}
-                </div>
-              ))}
-              {status === 'error' && <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: '#c0553a', padding: '8px 0' }}>{t.sendError}</div>}
-              <button className="form-btn" type="submit" disabled={status === 'loading'}>
-                {status === 'loading'
-                  ? <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span className="spinner" />{t.formSending}</span>
-                  : t.formSubmit}
-              </button>
-            </form>
-          )}
-        </AnimDiv>
-      </div>
-    </section>
-  );
-}
-
-function LangSwitcher({ lang, setLang }) {
-  const langs = ['ko', 'en', 'ja'];
-  return (
-    <div className="lang-switcher">
-      {langs.map((l, i) => (
-        <React.Fragment key={l}>
-          <button
-            className={`lang-btn${lang === l ? ' active' : ''}`}
-            onClick={() => setLang(l)}
-          >{l.toUpperCase()}</button>
-          {i < langs.length - 1 && <span className="lang-sep">·</span>}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
-
-function MobileHeader({ menuOpen, setMenuOpen, lang, setLang, isDark, toggleDark }) {
-  return (
-    <header className="mobile-header">
-      <div className="mobile-header-name">KIM <span>Hyogyeom</span></div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <LangSwitcher lang={lang} setLang={setLang} />
-        <button className={`dark-toggle${isDark ? ' on' : ''}`} onClick={toggleDark} aria-label="다크모드 토글" />
-        <button className={`hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="메뉴">
-          <span /><span /><span />
-        </button>
-      </div>
-    </header>
-  );
-}
-
-function MobileDrawer({ open, setOpen, activeSection, scrollTo, t }) {
-  const navIds = ['about-section', 'skills-section', 'blog-section', 'contact-section'];
-  const handleNav = (id) => { scrollTo(id); setOpen(false); };
-  return (
-    <div className={`mobile-drawer${open ? ' open' : ''}`}>
-      <div className="drawer-backdrop" onClick={() => setOpen(false)} />
-      <div className="drawer-panel">
-        <nav className="drawer-nav">
-          {navIds.map((id, i) => (
-            <button key={id}
-              className={`drawer-nav-item${activeSection === id ? ' active' : ''}`}
-              onClick={() => handleNav(id)}
-            >{t.navItems[i]}</button>
-          ))}
-        </nav>
-        <div className="drawer-footer">{t.footer}</div>
-      </div>
-    </div>
-  );
-}
-
-function TweaksPanel({ open, theme, setTheme, endpoint, setEndpoint, t }) {
-  const themeIds = ['warm', 'debug', 'dark'];
-  return (
-    <div className={`tweaks-panel${open ? ' open' : ''}`}>
-      <div className="tweaks-title">// Tweaks</div>
-      <div className="tweaks-group">
-        <div className="tweaks-group-label">{t.tweaksThemeLabel}</div>
-        <div className="tweaks-options">
-          {themeIds.map((id, i) => (
-            <button key={id}
-              className={`tweak-btn${theme === id ? ' selected' : ''}`}
-              onClick={() => setTheme(id)}
-            >{t.tweaksThemeOpts[i]}</button>
-          ))}
-        </div>
-      </div>
-      <div className="tweaks-group">
-        <div className="tweaks-group-label">{t.tweaksFormspreeLabel}</div>
-        <input className="tweak-input"
-          placeholder="https://formspree.io/f/xxxxxxxx"
-          value={endpoint}
-          onChange={e => setEndpoint(e.target.value)}
-          onBlur={e => {
-            window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { formspreeEndpoint: e.target.value } }, '*');
-            TWEAK_DEFAULTS.formspreeEndpoint = e.target.value;
+    function ProjectCard({ project, lang, animate }) {
+      return (
+        <div 
+          className="blog-card" 
+          style={{ 
+            opacity: animate ? 1 : 0, 
+            transform: animate ? 'translateY(0)' : 'translateY(20px)', 
+            transition: 'opacity 0.6s ease, transform 0.6s ease',
+            cursor: 'pointer'
           }}
-        />
-        <div style={{ fontSize: 9, fontFamily: 'var(--mono)', color: 'var(--fg2)', marginTop: 6, opacity: 0.7, lineHeight: 1.6 }}>
-          formspree.io에서 무료 가입 후<br/>엔드포인트 URL을 붙여넣으세요.
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  const savedLang = localStorage.getItem('portfolio-lang') || 'ko';
-  const [lang, setLang] = useState(savedLang);
-  const [activeSection, setActiveSection] = useState('about-section');
-  const [tweaksOpen, setTweaksOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState(TWEAK_DEFAULTS.theme || 'warm');
-  const [endpoint, setEndpoint] = useState(TWEAK_DEFAULTS.formspreeEndpoint || '');
-
-  const t = I18N[lang];
-  const isDark = theme === 'dark';
-  const toggleDark = () => handleThemeChange(isDark ? 'warm' : 'dark');
-
-  const handleSetLang = (l) => {
-    setLang(l);
-    localStorage.setItem('portfolio-lang', l);
-  };
-
-  useEffect(() => {
-    document.body.className = theme === 'warm' ? '' : `theme-${theme}`;
-  }, [theme]);
-
-  useEffect(() => {
-    const ids = ['about-section', 'skills-section', 'blog-section', 'contact-section'];
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
-    }, { threshold: 0.4 });
-    ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
-      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
-    };
-    window.addEventListener('message', handler);
-    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-    return () => window.removeEventListener('message', handler);
-  }, []);
-
-  const handleThemeChange = (th) => {
-    setTheme(th);
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: th } }, '*');
-  };
-
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
-  };
-
-  const navIds = ['about-section', 'skills-section', 'blog-section', 'contact-section'];
-
-  return (
-    <LangContext.Provider value={lang}>
-      <div className="layout">
-        <MobileHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={handleSetLang} isDark={isDark} toggleDark={toggleDark} />
-        <MobileDrawer open={menuOpen} setOpen={setMenuOpen} activeSection={activeSection} scrollTo={scrollTo} t={t} />
-        <nav className="sidebar">
-          <div>
-            <div className="sidebar-name">KIM Hyogyeom</div>
-            <div className="sidebar-role">{t.role}</div>
+          onClick={() => window.location.hash = `#/portfolio/${project.id}`}
+        >
+          <div className="blog-thumb">
+            <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="225" fill={project.color + '80'} />
+              {Array.from({ length: 18 }).map((_, i) => (
+                <rect key={i} x={i * 24 - 12} y="0" width="12" height="225" fill={project.color} opacity="0.35" />
+              ))}
+            </svg>
+            <div className="blog-thumb-label">{project.techStack[0]}</div>
           </div>
-          <div className="nav">
-            {navIds.map((id, i) => (
-              <button key={id}
-                className={`nav-item${activeSection === id ? ' active' : ''}`}
-                onClick={() => scrollTo(id)}
-              >{t.navItems[i]}</button>
+          <div className="blog-meta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
+            <span className="blog-tag" style={{ background: project.color + '20', color: project.color }}>{project.role}</span>
+            <span style={{ fontSize: 13, color: 'var(--fg2)', fontWeight: 500 }}>{project.period}</span>
+          </div>
+          <h3 className="blog-title">{project.title[lang]}</h3>
+          <p className="blog-excerpt">{project.summary[lang]}</p>
+        </div>
+      );
+    }
+
+    function ProjectsSection() {
+      const t = useLang();
+      const lang = useContext(LangContext);
+      const ref = useRef();
+      const visible = useIntersection(ref, { threshold: 0.1 });
+      return (
+        <section id="projects-section" ref={ref} data-screen-label="02 Projects">
+          <SectionHeader num="02" title={t.secTitles[1]} />
+          <div className="blog-grid" style={{ marginTop: 40 }}>
+            {PROJECTS_DATA.map((p, i) => (
+              <AnimDiv key={p.id} delay={i * 0.1}>
+                <ProjectCard project={p} lang={lang} animate={visible} />
+              </AnimDiv>
             ))}
           </div>
-          <div style={{ marginTop: 'auto', paddingTop: 24 }}>
-            <div className="sidebar-bottom-row">
-              <LangSwitcher lang={lang} setLang={handleSetLang} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span className="dark-toggle-label">{isDark ? '🌙' : '☀️'}</span>
-                <button className={`dark-toggle${isDark ? ' on' : ''}`} onClick={toggleDark} aria-label="다크모드 토글" />
+        </section>
+      );
+    }
+
+    function SkillBar({ name, level, animate }) {
+      return (
+        <div className="skill-row">
+          <span className="skill-name">{name}</span>
+          <div className="skill-bar-track">
+            <div
+              className="skill-bar-fill"
+              style={{ width: animate ? level + '%' : '0%' }}
+            />
+          </div>
+          <span className="skill-level">{level}</span>
+        </div>
+      );
+    }
+
+    function SkillsSection() {
+      const t = useLang();
+      const ref = useRef();
+      const visible = useIntersection(ref);
+      return (
+        <section id="skills-section" ref={ref} data-screen-label="03 Skills">
+          <SectionHeader num="03" title={t.secTitles[2]} />
+          <div className="skills-categories">
+            {SKILLS_DATA.map((cat, ci) => (
+              <AnimDiv key={cat.catKey} delay={ci * 0.1}>
+                <div className="skill-cat-title">{t[cat.catKey]}</div>
+                <div className="skill-list">
+                  {cat.items.map((s) => (
+                    <SkillBar key={s.name} name={s.name} level={s.level} animate={visible} />
+                  ))}
+                </div>
+              </AnimDiv>
+            ))}
+            <AnimDiv delay={0.3}>
+              <div className="skill-cat-title">{t.catTools}</div>
+              <div className="skills-tags">
+                {TOOLS.map(tool => <span className="skill-tag" key={tool}>{tool}</span>)}
               </div>
-            </div>
-            <div className="sidebar-footer">
-              {t.footer.split('\n').map((line, i) => <div key={i}>{line}</div>)}
+            </AnimDiv>
+          </div>
+        </section>
+      );
+    }
+
+    function BlogThumb({ color, tag }) {
+      const stripeColor = color;
+      const stripeLight = color + '80';
+      return (
+        <div className="blog-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill={stripeLight} />
+            {Array.from({ length: 18 }).map((_, i) => (
+              <rect key={i} x={i * 24 - 12} y="0" width="12" height="225" fill={stripeColor} opacity="0.35" />
+            ))}
+            <rect x="0" y="0" width="400" height="225" fill="none" stroke={stripeColor} strokeWidth="1" opacity="0.3" />
+          </svg>
+          <div className="blog-thumb-label">thumbnail — {tag}</div>
+          <div className="blog-thumb-overlay" />
+        </div>
+      );
+    }
+
+    // ── 블로그 전체 보기 링크 — 언어별 블로그 주소로 교체하세요 ─────
+    const BLOG_URL = { ko: "#", en: "#", ja: "#" };
+    // 기본 표시 포스트 수 (더보기 전)
+    const BLOG_PREVIEW_COUNT = 4;
+
+    function BlogSection() {
+      const t = useLang();
+      const lang = useContext(LangContext);
+      const [expanded, setExpanded] = useState(false);
+      const visiblePosts = expanded ? POSTS : POSTS.slice(0, BLOG_PREVIEW_COUNT);
+      const hasMore = POSTS.length > BLOG_PREVIEW_COUNT;
+
+      return (
+        <section id="blog-section" data-screen-label="04 Blog">
+          <SectionHeader num="04" title={t.secTitles[3]} />
+          <div className="blog-grid">
+            {visiblePosts.map((p, i) => {
+              const href = p.href[lang] || p.href.ko || '#';
+              const title = p.title[lang] || p.title.ko;
+              const excerpt = p.excerpt[lang] || p.excerpt.ko;
+              return (
+                <AnimDiv key={i} delay={i * 0.06}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="blog-card">
+                    <BlogThumb color={p.color} tag={p.tag} />
+                    <div className="blog-card-body">
+                      <div className="blog-card-meta">
+                        <span className="blog-card-tag">{p.tag}</span>
+                        <span className="blog-card-date">{p.date}</span>
+                        <span className="blog-card-views">👁 {p.views}</span>
+                      </div>
+                      <div className="blog-card-title">{title}</div>
+                      <div className="blog-card-excerpt">{excerpt}</div>
+                      <div className="blog-card-footer">
+                        <span className="blog-card-read">{p.readTime} {t.readMin}</span>
+                        <span className="blog-card-arrow">↗</span>
+                      </div>
+                    </div>
+                  </a>
+                </AnimDiv>
+              );
+            })}
+          </div>
+          <div className="blog-actions">
+            {hasMore && (
+              <button className="blog-more-btn" onClick={() => setExpanded(e => !e)}>
+                {expanded ? t.showLess : t.showMore}
+                <span className="blog-more-icon">{expanded ? '↑' : '↓'}</span>
+              </button>
+            )}
+            <a href={BLOG_URL[lang] || '#'} target="_blank" rel="noopener noreferrer" className="blog-all-link">
+              {t.viewAllBlog}
+            </a>
+          </div>
+        </section>
+      );
+    }
+
+    function ContactSection({ endpoint }) {
+      const t = useLang();
+      const [status, setStatus] = useState('idle');
+      const [fields, setFields] = useState({ name: '', email: '', message: '' });
+      const [errors, setErrors] = useState({});
+
+      const validate = () => {
+        const e = {};
+        if (!fields.name.trim()) e.name = t.errs[0];
+        if (!fields.email.trim()) e.email = t.errs[1];
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) e.email = t.errs[2];
+        if (!fields.message.trim()) e.message = t.errs[3];
+        return e;
+      };
+
+      const handleChange = (k, v) => {
+        setFields(f => ({ ...f, [k]: v }));
+        if (errors[k]) setErrors(e => ({ ...e, [k]: null }));
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const errs = validate();
+        if (Object.keys(errs).length) { setErrors(errs); return; }
+        if (!endpoint) { setStatus('no-endpoint'); return; }
+        setStatus('loading');
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name: fields.name, email: fields.email, message: fields.message }),
+          });
+          if (res.ok) { setStatus('success'); }
+          else { setStatus('error'); }
+        } catch { setStatus('error'); }
+      };
+
+      const fieldKeys = ['name', 'email', 'message'];
+
+      return (
+        <section id="contact-section" data-screen-label="05 Contact">
+          <SectionHeader num="05" title={t.secTitles[4]} />
+          <div className="contact-grid">
+            <AnimDiv>
+              <div className="contact-intro">{t.contactIntro}</div>
+              <p className="contact-sub">{t.contactSub}</p>
+              <div className="contact-links">
+                {/* ── 소셜/연락처 링크 — href와 label을 실제 정보로 교체하세요 ── */}
+                {[
+                  { icon: "GH", label: "github.com/HANARU", href: "https://github.com/HANARU" },
+                  { icon: "ML", label: "kghm1231@gmail.com", href: "mailto:kghm1231@gmail.com" },
+                  { icon: "LI", label: "linkedin.com/in/kghm123", href: "https://linkedin.com/in/kghm123" },
+                ].map(l => (
+                  <a className="contact-link" href={l.href} key={l.icon} target="_blank" rel="noopener noreferrer">
+                    <div className="contact-link-icon">{l.icon}</div>
+                    <span>{l.label}</span>
+                  </a>
+                ))}
+              </div>
+            </AnimDiv>
+            <AnimDiv delay={0.15}>
+              {status === 'success' ? (
+                <div style={{ padding: '48px 0' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)', marginBottom: 14, letterSpacing: '0.1em' }}>{t.successCode}</div>
+                  <div style={{ fontSize: 20, fontWeight: 600, marginBottom: 8 }}>{t.successTitle}</div>
+                  <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.6 }}>{t.successSub}</div>
+                  <button className="form-btn" style={{ marginTop: 28, width: 'fit-content' }}
+                    onClick={() => { setStatus('idle'); setFields({ name: '', email: '', message: '' }); }}>
+                    {t.resend}
+                  </button>
+                </div>
+              ) : status === 'no-endpoint' ? (
+                <div style={{ padding: '32px', background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--accent)', marginBottom: 12, letterSpacing: '0.1em' }}>{t.setupCode}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{t.setupTitle}</div>
+                  <ol style={{ fontSize: 12, color: 'var(--fg2)', lineHeight: 2, paddingLeft: 18 }}>
+                    {t.setupSteps.map((s, i) => <li key={i}>{s}</li>)}
+                  </ol>
+                  <button className="form-btn" style={{ marginTop: 20, width: 'fit-content', fontSize: 11 }} onClick={() => setStatus('idle')}>
+                    {t.setupBack}
+                  </button>
+                </div>
+              ) : (
+                <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                  {fieldKeys.map((k, i) => (
+                    <div className="form-field" key={k}>
+                      <label className="form-label">{t.formLabels[i]}</label>
+                      {k === 'message' ? (
+                        <textarea className={`form-textarea${errors[k] ? ' form-input-error' : ''}`}
+                          placeholder={t.formPH[2]} value={fields[k]}
+                          onChange={e => handleChange(k, e.target.value)} />
+                      ) : (
+                        <input className={`form-input${errors[k] ? ' form-input-error' : ''}`}
+                          type={k === 'email' ? 'email' : 'text'}
+                          placeholder={t.formPH[i]} value={fields[k]}
+                          onChange={e => handleChange(k, e.target.value)} />
+                      )}
+                      {errors[k] && <span style={{ fontFamily: 'var(--mono)', fontSize: 10, color: '#c0553a', marginTop: 2 }}>{errors[k]}</span>}
+                    </div>
+                  ))}
+                  {status === 'error' && <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: '#c0553a', padding: '8px 0' }}>{t.sendError}</div>}
+                  <button className="form-btn" type="submit" disabled={status === 'loading'}>
+                    {status === 'loading'
+                      ? <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span className="spinner" />{t.formSending}</span>
+                      : t.formSubmit}
+                  </button>
+                </form>
+              )}
+            </AnimDiv>
+          </div>
+        </section>
+      );
+    }
+
+    function LangSwitcher({ lang, setLang }) {
+      const langs = ['ko', 'en', 'ja'];
+      return (
+        <div className="lang-switcher">
+          {langs.map((l, i) => (
+            <React.Fragment key={l}>
+              <button
+                className={`lang-btn${lang === l ? ' active' : ''}`}
+                onClick={() => setLang(l)}
+              >{l.toUpperCase()}</button>
+              {i < langs.length - 1 && <span className="lang-sep">·</span>}
+            </React.Fragment>
+          ))}
+        </div>
+      );
+    }
+
+    function MobileHeader({ menuOpen, setMenuOpen, lang, setLang, isDark, toggleDark }) {
+      return (
+        <header className="mobile-header">
+          <div className="mobile-header-name">KIM <span>Hyogyeom</span></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <LangSwitcher lang={lang} setLang={setLang} />
+            <button className={`dark-toggle${isDark ? ' on' : ''}`} onClick={toggleDark} aria-label="다크모드 토글" />
+            <button className={`hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="메뉴">
+              <span /><span /><span />
+            </button>
+          </div>
+        </header>
+      );
+    }
+
+    function MobileDrawer({ open, setOpen, activeSection, scrollTo, t, currentRoute }) {
+      const navIds = ['about-section', 'projects-section', 'skills-section', 'blog-section', 'contact-section'];
+      const handleNav = (id) => { scrollTo(id); setOpen(false); };
+      return (
+        <div className={`mobile-drawer${open ? ' open' : ''}`}>
+          <div className="drawer-backdrop" onClick={() => setOpen(false)} />
+          <div className="drawer-panel">
+            <nav className="drawer-nav">
+              {currentRoute === '/' ? navIds.map((id, i) => (
+                <button key={id}
+                  className={`drawer-nav-item${activeSection === id ? ' active' : ''}`}
+                  onClick={() => handleNav(id)}
+                >{t.navItems[i]}</button>
+              )) : (
+                <button className="drawer-nav-item active" onClick={() => { window.location.hash = '/'; setOpen(false); }}>
+                  ← Home
+                </button>
+              )}
+            </nav>
+            <div className="drawer-footer">{t.footer}</div>
+          </div>
+        </div>
+      );
+    }
+
+    function TweaksPanel({ open, theme, setTheme, endpoint, setEndpoint, t }) {
+      const themeIds = ['warm', 'debug', 'dark'];
+      return (
+        <div className={`tweaks-panel${open ? ' open' : ''}`}>
+          <div className="tweaks-title">// Tweaks</div>
+          <div className="tweaks-group">
+            <div className="tweaks-group-label">{t.tweaksThemeLabel}</div>
+            <div className="tweaks-options">
+              {themeIds.map((id, i) => (
+                <button key={id}
+                  className={`tweak-btn${theme === id ? ' selected' : ''}`}
+                  onClick={() => setTheme(id)}
+                >{t.tweaksThemeOpts[i]}</button>
+              ))}
             </div>
           </div>
-        </nav>
+          <div className="tweaks-group">
+            <div className="tweaks-group-label">{t.tweaksFormspreeLabel}</div>
+            <input className="tweak-input"
+              placeholder="https://formspree.io/f/xxxxxxxx"
+              value={endpoint}
+              onChange={e => setEndpoint(e.target.value)}
+              onBlur={e => {
+                window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { formspreeEndpoint: e.target.value } }, '*');
+                TWEAK_DEFAULTS.formspreeEndpoint = e.target.value;
+              }}
+            />
+            <div style={{ fontSize: 9, fontFamily: 'var(--mono)', color: 'var(--fg2)', marginTop: 6, opacity: 0.7, lineHeight: 1.6 }}>
+              formspree.io에서 무료 가입 후<br />엔드포인트 URL을 붙여넣으세요.
+            </div>
+          </div>
+        </div>
+      );
+    }
 
-        <main className="main">
-          <HeroSection />
-          <SkillsSection />
-          <BlogSection />
-          <ContactSection endpoint={endpoint} />
-        </main>
+    function PortfolioView({ selectedProject }) {
+      const lang = useContext(LangContext);
+      const [mdHtml, setMdHtml] = useState('');
+      const [loading, setLoading] = useState(true);
+      
+      useEffect(() => {
+        window.scrollTo(0, 0);
+        
+        if (!selectedProject) return;
+        
+        setLoading(true);
+        // fetch markdown dynamically based on id and lang
+        fetch(`projects/${selectedProject.id}-${lang}.md`)
+          .then(res => {
+            if (!res.ok) throw new Error('Not found');
+            return res.text();
+          })
+          .then(text => {
+            setMdHtml(marked.parse(text));
+            setLoading(false);
+          })
+          .catch(err => {
+            setMdHtml('<p>Content not found.</p>');
+            setLoading(false);
+          });
+          
+      }, [selectedProject, lang]);
 
-        <TweaksPanel open={tweaksOpen} theme={theme} setTheme={handleThemeChange} endpoint={endpoint} setEndpoint={setEndpoint} t={t} />
-      </div>
-    </LangContext.Provider>
-  );
-}
+      if (!selectedProject) {
+        return (
+          <div style={{ padding: '100px 0', textAlign: 'center' }}>
+            Page not found. <a href="#/" style={{ color: 'var(--accent)' }}>Go back</a>
+          </div>
+        );
+      }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+      return (
+        <section className="portfolio-detail-view" style={{ minHeight: '100vh', paddingTop: '40px' }}>
+          <button className="form-btn" onClick={() => window.location.hash = '/'} style={{ marginBottom: 40, width: 'fit-content' }}>
+            ← Back
+          </button>
+          <SectionHeader num="PF" title="Portfolio Detail" />
+          <AnimDiv>
+            <div style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: selectedProject.color }}>{selectedProject.title[lang]}</div>
+            <div style={{ color: 'var(--fg2)', fontSize: 14, marginBottom: 32, display: 'flex', gap: 16 }}>
+              <span>{selectedProject.role}</span>
+              <span>|</span>
+              <span>{selectedProject.period}</span>
+            </div>
+            
+            {loading ? (
+              <p style={{ color: 'var(--fg2)', lineHeight: 1.8, marginBottom: 40, fontSize: 16 }}>Loading...</p>
+            ) : (
+              <div 
+                className="markdown-body" 
+                style={{ color: 'var(--fg)', lineHeight: 1.8, marginBottom: 40, fontSize: 16 }} 
+                dangerouslySetInnerHTML={{ __html: mdHtml }} 
+              />
+            )}
+            
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 48 }}>
+              {selectedProject.techStack.map(ts => (
+                <span className="skill-tag" key={ts} style={{ background: selectedProject.color + '20', color: selectedProject.color, border: 'none', padding: '8px 16px', borderRadius: 20 }}>{ts}</span>
+              ))}
+            </div>
+
+            <div style={{ width: '100%', height: 500, background: selectedProject.color + '20', border: `1px dashed ${selectedProject.color}`, borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', color: selectedProject.color, marginBottom: 40 }}>
+              [Image / Video Placeholder]
+            </div>
+          </AnimDiv>
+        </section>
+      );
+    }
+
+    function App() {
+      const savedLang = localStorage.getItem('portfolio-lang') || 'ko';
+      const [lang, setLang] = useState(savedLang);
+      const [activeSection, setActiveSection] = useState('about-section');
+      const [tweaksOpen, setTweaksOpen] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [theme, setTheme] = useState(TWEAK_DEFAULTS.theme || 'warm');
+      const [endpoint, setEndpoint] = useState(TWEAK_DEFAULTS.formspreeEndpoint || '');
+      const [currentRoute, setCurrentRoute] = useState(() => window.location.hash.slice(1) || '/');
+      const [selectedProject, setSelectedProject] = useState(null);
+
+      useEffect(() => {
+        const handleHash = () => {
+          const hash = window.location.hash.slice(1) || '/';
+          setCurrentRoute(hash);
+          
+          if (hash.startsWith('/portfolio/')) {
+            const id = hash.replace('/portfolio/', '');
+            const proj = PROJECTS_DATA.find(p => p.id === id);
+            setSelectedProject(proj || null);
+          } else {
+            setSelectedProject(null);
+          }
+        };
+        window.addEventListener('hashchange', handleHash);
+        handleHash(); // init
+        return () => window.removeEventListener('hashchange', handleHash);
+      }, []);
+
+      const t = I18N[lang];
+      const isDark = theme === 'dark';
+      const toggleDark = () => handleThemeChange(isDark ? 'warm' : 'dark');
+
+      const handleSetLang = (l) => {
+        setLang(l);
+        localStorage.setItem('portfolio-lang', l);
+      };
+
+      useEffect(() => {
+        document.body.className = theme === 'warm' ? '' : `theme-${theme}`;
+      }, [theme]);
+
+      useEffect(() => {
+        if (currentRoute !== '/') return;
+        const ids = ['about-section', 'projects-section', 'skills-section', 'blog-section', 'contact-section'];
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
+        }, { threshold: 0.4 });
+        setTimeout(() => {
+          ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+        }, 100);
+        return () => obs.disconnect();
+      }, [currentRoute]);
+
+      useEffect(() => {
+        const handler = (e) => {
+          if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+          if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+        };
+        window.addEventListener('message', handler);
+        window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+        return () => window.removeEventListener('message', handler);
+      }, []);
+
+      const handleThemeChange = (th) => {
+        setTheme(th);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: th } }, '*');
+      };
+
+      const scrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
+      };
+
+      const navIds = ['about-section', 'projects-section', 'skills-section', 'blog-section', 'contact-section'];
+
+      return (
+        <LangContext.Provider value={lang}>
+          <div className="layout">
+            <MobileHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={handleSetLang} isDark={isDark} toggleDark={toggleDark} />
+            <MobileDrawer open={menuOpen} setOpen={setMenuOpen} activeSection={activeSection} scrollTo={scrollTo} t={t} currentRoute={currentRoute} />
+            <nav className="sidebar">
+              <div>
+                <div className="sidebar-name">KIM Hyogyeom</div>
+                <div className="sidebar-role">{t.role}</div>
+              </div>
+              <div className="nav">
+                {currentRoute === '/' ? navIds.map((id, i) => (
+                  <button key={id}
+                    className={`nav-item${activeSection === id ? ' active' : ''}`}
+                    onClick={() => scrollTo(id)}
+                  >{t.navItems[i]}</button>
+                )) : (
+                  <button className="nav-item active" onClick={() => window.location.hash = '/'}>
+                    ← Home
+                  </button>
+                )}
+              </div>
+              <div style={{ marginTop: 'auto', paddingTop: 24 }}>
+                <div className="sidebar-bottom-row">
+                  <LangSwitcher lang={lang} setLang={handleSetLang} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span className="dark-toggle-label">{isDark ? '🌙' : '☀️'}</span>
+                    <button className={`dark-toggle${isDark ? ' on' : ''}`} onClick={toggleDark} aria-label="다크모드 토글" />
+                  </div>
+                </div>
+                <div className="sidebar-footer">
+                  {t.footer.split('\n').map((line, i) => <div key={i}>{line}</div>)}
+                </div>
+              </div>
+            </nav>
+
+            <main className="main">
+              {currentRoute === '/' ? (
+                <>
+                  <HeroSection />
+                  <ProjectsSection />
+                  <SkillsSection />
+                  <BlogSection />
+                  <ContactSection endpoint={endpoint} />
+                </>
+              ) : currentRoute.startsWith('/portfolio/') ? (
+                <PortfolioView selectedProject={selectedProject} />
+              ) : (
+                <div style={{ padding: '100px 0', textAlign: 'center' }}>
+                  Page not found. <a href="#/" style={{ color: 'var(--accent)' }}>Go back</a>
+                </div>
+              )}
+            </main>
+
+            <TweaksPanel open={tweaksOpen} theme={theme} setTheme={handleThemeChange} endpoint={endpoint} setEndpoint={setEndpoint} t={t} />
+          </div>
+        </LangContext.Provider>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
 </body>
+
 </html>
